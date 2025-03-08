@@ -22,4 +22,4 @@ app.post("/order", async (req, res) => {
     res.send({ message: "Order processed successfully" });
 });
 
-app.listen(4000, () => console.log("Order Service running on port 4000"));
+app.listen(PORT, () => console.log(`Order Service running on port ${PORT}`));
