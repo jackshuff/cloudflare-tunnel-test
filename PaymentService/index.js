@@ -14,5 +14,5 @@ app.post("/pay", (req, res) => {
     res.send({ message: "Payment successful" });
 });
 
-
+const PORT = process.env.PORT || 4002;
 app.listen(PORT, () => console.log(`Payment Service running on port ${PORT}`));
