@@ -1,19 +1,17 @@
 const express = require("express");
-const axios = require("axios");
 const app = express();
 app.use(express.json());
 
-// Handle order creation
-app.post("/order", async (req, res) => {
-    const { orderId, amount } = req.body;
-
-    // Call Payment Service (inside Cloudflare Tunnel)
-    await axios.post("http://payment.internal/pay", { orderId, amount });
-
-    // Call Inventory Service (inside Cloudflare Tunnel)
-    await axios.post("http://inventory.internal/reserve", { orderId });
-
-    res.send({ message: "Order processed successfully" });
+app.get("/", (req, res) => {
+    console.log("Payment Service homepage accessed.");
+    res.send("Welcome to Payment Service");
 });
 
-app.listen(4000, () => console.log("Order Service running on port 4000"));
+// Process Payment
+app.post("/pay", (req, res) => {
+    const { orderId, amount } = req.body;
+    console.log(`Processing payment of $${amount} for order ${orderId}`);
+    res.send({ message: "Payment successful" });
+});
+
+app.listen(4001, () => console.log("Payment Service running on port 4001"));
