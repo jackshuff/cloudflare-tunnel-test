@@ -1,1 +1,2 @@
 web: node index.js
+worker: /app/cloudflared/cloudflared tunnel --no-autoupdate run --token $CLOUDFLARED_TOKEN
