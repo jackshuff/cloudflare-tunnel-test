@@ -1,1 +1,1 @@
-web:  /app/cloudflared/cloudflared tunnel --no-autoupdate run --token $CLOUDFLARED_TOKEN && node index.js
+web:  /app/cloudflared/cloudflared tunnel --no-autoupdate run --token $CLOUDFLARED_TOKEN & node index.js
