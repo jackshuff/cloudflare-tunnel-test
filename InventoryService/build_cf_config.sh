@@ -6,7 +6,9 @@ echo "-----> Generating Cloudflare config.yml dynamically..."
 # Ensure the cloudflared directory exists
 mkdir -p /app/.cloudflared
 
-cat echo ${CLOUDFLARE_TUNNEL_CREDENTIALS} > /app/.cloudflared/tunnel.json
+# Write Cloudflare tunnel credentials to file
+echo "${CLOUDFLARE_TUNNEL_CREDENTIALS}" > /app/.cloudflared/tunnel.json
+
 # Generate config.yml with runtime values
 cat <<EOF > /app/.cloudflared/config.yml
 tunnel: ${CLOUDFLARE_TUNNEL_ID}
