@@ -14,10 +14,10 @@ app.post("/order", async (req, res) => {
     const { orderId, amount } = req.body;
 
     // Call Payment Service (inside Cloudflare Tunnel)
-    await axios.post("https://api.combinepensions.com/payments", { orderId, amount });
+    await axios.post("https://api.combinepensions.com/cf-payment-service/pay", { orderId, amount });
 
     // Call Inventory Service (inside Cloudflare Tunnel)
-    await axios.post("https://api.combinepensions.com/inventory", { orderId });
+    await axios.post("https://api.combinepensions.com/cf-inventory-service/reserve", { orderId });
 
     res.send({ message: "Order processed successfully" });
 });

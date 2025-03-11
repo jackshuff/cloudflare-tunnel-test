@@ -14,7 +14,8 @@ cat <<EOF > /app/.cloudflared/config.yml
 tunnel: ${CLOUDFLARE_TUNNEL_ID}
 credentials-file: /app/.cloudflared/tunnel.json
 ingress:
-  - hostname: ${HEROKU_APP_NAME}.${CLOUDFLARE_TUNNEL_DOMAIN}
+  - hostname: api.combinepensions.com
+    path: /${HEROKU_APP_NAME}/*
     service: http://localhost:${PORT}
   - service: http_status:404
 EOF
