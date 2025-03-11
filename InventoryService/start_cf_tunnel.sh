@@ -6,16 +6,13 @@ echo "-----> Starting Cloudflare Tunnel..."
 # Ensure the Cloudflare directory exists
 mkdir -p /app/.cloudflared
 
-# Decode Cloudflare Tunnel credentials from Heroku environment variable (if stored as Base64)
-if [ -n "$CLOUDFLARE_TUNNEL_CREDENTIALS" ]; then
-    echo "Decoding Cloudflare Tunnel credentials from environment variable..."
-    echo $CLOUDFLARE_TUNNEL_CREDENTIALS | base64 -d > /app/.cloudflared/tunnel.json
-fi
+# Set Cloudflare Tunnel parameters as variables
+CLOUDFLARE_CONFIG="/app/.cloudflared/config.yml"
+CLOUDFLARE_CREDENTIALS="/app/.cloudflared/tunnel.json"
+CLOUDFLARE_LABEL="app-name=${HEROKU_APP_NAME}"
+CLOUDFLARE_BINARY="/app/cloudflared/cloudflared"
 
 # Start Cloudflare Tunnel
-/app/cloudflared/cloudflared tunnel run \
-    --config /app/.cloudflared/config.yml \
-    --credentials-file /app/.cloudflared/tunnel.json &
-    --label $HEROKU_APP_NAME
-    
+$CLOUDFLARE_BINARY tunnel --config $CLOUDFLARE_CONFIG run
+
 echo "✅ Cloudflare Tunnel started successfully."

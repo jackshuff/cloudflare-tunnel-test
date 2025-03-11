@@ -6,8 +6,11 @@ echo "-----> Generating Cloudflare config.yml dynamically..."
 # Ensure the cloudflared directory exists
 mkdir -p /app/.cloudflared
 
+cat echo ${CLOUDFLARE_TUNNEL_CREDENTIALS} > /app/.cloudflared/tunnel.json
 # Generate config.yml with runtime values
 cat <<EOF > /app/.cloudflared/config.yml
+tunnel: ${CLOUDFLARE_TUNNEL_ID}
+credentials-file: /app/.cloudflared/tunnel.json
 ingress:
   - hostname: ${HEROKU_APP_NAME}.${CLOUDFLARE_TUNNEL_DOMAIN}
     service: http://localhost:${PORT}
